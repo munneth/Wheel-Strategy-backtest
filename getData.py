@@ -35,7 +35,7 @@ print(options[0]['expiration'])
 i = 0
 while i < len(options):
     optionsExpire = options[i]['expiration']
-    if optionsExpire[5:7] == '09' and (int(optionsExpire[8:10]) <= day+5 and int(optionsExpire[8:10]) >= day):
+    if optionsExpire[5:7] == '09' and (int(optionsExpire[8:10]) >= day and int(optionsExpire[8:10]) <= day+5 ):
         viableOptions.append(options[i])
         print(options[i])
     i += 1
