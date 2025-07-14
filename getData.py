@@ -28,6 +28,7 @@ day = int(date[8:10])
 options = data["data"]
 viableOptions = []
 viableOptionsStrikes = []
+viableOptionsBids = []
 #print(options[0]['expiration'])
 
 
@@ -48,3 +49,12 @@ while j < len(viableOptions):
     viableOptionsStrikes.append(viableOptions[j]['strike'])
     print(viableOptions[j]['strike'])
     j += 1
+
+# parse bid of those in the viable options array
+
+k = 0
+while k < len(viableOptions):
+    viableOptionsBids.append(viableOptions[k]['bid'])
+    print(viableOptions[k]['bid'])
+    k += 1
+
