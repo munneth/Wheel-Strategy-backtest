@@ -27,8 +27,8 @@ day = int(date[8:10])
 
 options = data["data"]
 viableOptions = []
-
-print(options[0]['expiration'])
+viableOptionsStrikes = []
+#print(options[0]['expiration'])
 
 
 
@@ -37,5 +37,14 @@ while i < len(options):
     optionsExpire = options[i]['expiration']
     if optionsExpire[5:7] == '09' and (int(optionsExpire[8:10]) >= day and int(optionsExpire[8:10]) <= day+5 ):
         viableOptions.append(options[i])
-        print(options[i])
+        #print(options[i])
     i += 1
+
+
+# parse strike price of those in the viable options array
+
+j = 0
+while j < len(viableOptions):
+    viableOptionsStrikes.append(viableOptions[j]['strike'])
+    print(viableOptions[j]['strike'])
+    j += 1
