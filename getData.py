@@ -30,18 +30,12 @@ viableOptions = []
 
 print(options[0]['expiration'])
 
+
+
 i = 0
 while i < len(options):
     optionsExpire = options[i]['expiration']
-    expire_day = int(optionsExpire[8:10])
-    expire_month = optionsExpire[5:7]
-    
-    if expire_month == '09':
-        # For September options from August 1st
-        # September 1st = 31 days, September 2nd = 32 days, etc.
-        days_diff = 31 + expire_day - 1  # 31 days to Sept 1st, then add remaining days
-        
-        if 30 <= days_diff <= 35:
-            viableOptions.append(options[i])
-            print(f"Found option expiring in {days_diff} days: {options[i]['contractID']}")
+    if optionsExpire[5:7] == '09' and (int(optionsExpire[8:10]) <= day+5 and int(optionsExpire[8:10]) >= day):
+        viableOptions.append(options[i])
+        print(options[i])
     i += 1
