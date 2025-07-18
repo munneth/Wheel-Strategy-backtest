@@ -23,7 +23,9 @@ else:
 #print(data.data[0])
 
 #parse date to get day
-day = int(date[8:10])
+def getDay(date):
+    day = int(date[8:10])
+    return day
  
 
 #parse json to get all options within 30-35 day expiration from date
