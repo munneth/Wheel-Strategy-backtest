@@ -41,8 +41,15 @@ def getHigh(date):
     
 def getLow(date):
     data = getStockData(date)
-    low = data[]
+    low = data["Time Series (Daily)"][date]["3. low"]
+    print(low)
+    return low
 
+def getOpen(date):
+    data = getStockData(date)
+    open = data["Time Series (Daily)"][date]["1. open"]
+    print(open)
+    return open
 
 getHigh('2024-08-01')
 
