@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
-from getOptionsData import getViableOptions, getStrikes, getBids, getDay, date, options
+from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getStrikeBidPairs,date, options
+from getStockData import getLow, getHigh, getOpen
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,7 +20,7 @@ def main():
     print("How many days do you want to run the program for?")
     daysToRun = int(input())
 
-    
+    print(getStrikeBidPairs(getViableOptions(options, day)))
     print("Enter what Strike price you would like, your bid will be the one associated with that strike price")
     strikePrice = int(input())
 

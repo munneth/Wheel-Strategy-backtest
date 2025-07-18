@@ -68,7 +68,8 @@ def getBids(viableOptions):
 def getStrikeBidPairs(viableOptions):
     pairs = []
     for option in viableOptions:
+        expiration = option.get('expiration')
         strike = option.get('strike')
         bid = option.get('bid')
-        pairs.append((strike, bid))
+        pairs.append((expiration, strike, bid))
     return pairs 
