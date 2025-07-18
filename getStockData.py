@@ -38,6 +38,10 @@ def getHigh(date):
     else:
         print("Warning: 'Time Series (Daily)' key not found in API response:", data)
         return None
+    
+def getLow(date):
+    data = getStockData(date)
+    low = data[]
 
 
 getHigh('2024-08-01')
