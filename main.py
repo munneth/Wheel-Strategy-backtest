@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getStrikeBidPairs,date, options
+from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getStrikeBidPairs, fetchOptions
 from getStockData import getLow, getHigh, getOpen
 
 # Load environment variables from .env file
@@ -13,16 +13,24 @@ api_key = os.getenv('ALPHA_API_KEY')
 def main():
 
     # user input
-    print("Enter the date you want to begin from")
+    print("Enter the date you want to begin from ---- EXAMPLE: 2024-08-01")
     date = input()
     day = getDay(date)
+    options = fetchOptions(date)
+    viableOptions = getViableOptions(options, day)
+    print(viableOptions)
 
     print("How many days do you want to run the program for?")
     daysToRun = int(input())
 
-    print(getStrikeBidPairs(getViableOptions(options, day)))
+    print(getStrikeBidPairs(viableOptions))
     print("Enter what Strike price you would like, your bid will be the one associated with that strike price")
     strikePrice = int(input())
+
+    print("Enter how many contracts you would like to buy")
+    contracts = int(input())
+
+
 
     while int(day) < daysToRun:
         print(getLow(date))

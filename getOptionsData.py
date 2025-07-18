@@ -9,18 +9,20 @@ load_dotenv()
 api_key = os.getenv('ALPHA_API_KEY')
 
 #url
-date='2024-08-01'#most volatile time period for market in 2024
-url = f'https://www.alphavantage.co/query?function=HISTORICAL_OPTIONS&symbol=AMZN&apikey={api_key}&date={date}'
-r = requests.get(url)
-data = r.json()
+#date='2024-08-01'#most volatile time period for market in 2024
 
-if 'data' in data:
-    options = data['data']
-else:
-    print("Warning: 'data' key not found in API response:", data)
-    options = []
+# Remove the old top-level code that fetched options with a hardcoded date
 
-#print(data.data[0])
+def fetchOptions(date):
+    url = f'https://www.alphavantage.co/query?function=HISTORICAL_OPTIONS&symbol=AMZN&apikey={api_key}&date={date}'
+    r = requests.get(url)
+    data = r.json()
+    if 'data' in data:
+        return data['data']
+    else:
+        print("Warning: 'data' key not found in API response:", data)
+        return []
+
 
 #parse date to get day
 def getDay(date):

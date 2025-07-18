@@ -1,9 +1,8 @@
-from getOptionsData import getViableOptions, getStrikes, getBids, day, date, options
-import os
+from getOptionsData import getViableOptions, getStrikes, getBids
 from datetime import datetime, timedelta
 import requests
 import json
-
+import os
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
