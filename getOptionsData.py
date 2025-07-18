@@ -29,7 +29,16 @@ def fetchOptions(date):
 def getDay(date):
     day = int(date[8:10])
     return day
+
+#parse date to get month
+def getMonth(date):
+    month = int(date[5:7])
+    return month
  
+def getExpireDate(strikeBidExpireArray, selectedBid, selectedStrike):
+    for option in strikeBidExpireArray:
+        if option[2] == selectedBid and option[1] == selectedStrike:
+            return option[0]
 
 #parse json to get all options within 30-35 day expiration from date
 

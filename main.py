@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getStrikeBidPairs, fetchOptions
+from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate
 from getStockData import getLow, getHigh, getOpen
 
 # Load environment variables from .env file
@@ -15,9 +15,14 @@ def main():
     # user input
     print("Enter the date you want to begin from ---- EXAMPLE: 2024-08-01")
     date = input()
+    expireDate = None
     day = getDay(date)
+    expireDay = None
+    month = getMonth(date)
+    expireMonth = None
     options = fetchOptions(date)
     viableOptions = getViableOptions(options, date)
+    strikePrice, bid = None, None
     print(options)
     print("--------------------------------")
     
@@ -29,12 +34,18 @@ def main():
     for option in getStrikeBidPairs(viableOptions):
         print(str(option) + "\n")
 
+
     print("Enter what Strike price you would like, your bid will be the one associated with that strike price")
     strikePrice = int(input())
+    print("Enter what bid you would like, your strike will be the one associated with that bid")
+    bid = int(input())
+    expireDate = getExpireDate(getStrikeBidPairs(viableOptions), bid, strikePrice)
+    expireDay = getDay(expireDate)
+    expireMonth = getMonth(expireDate)
+
 
     print("Enter how many contracts you would like to buy")
     contracts = int(input())
-
 
 
     while int(day) < daysToRun:
@@ -43,6 +54,8 @@ def main():
     bids = getBids(getViableOptions(options, day))
     print(strikes)
     print(bids)
+
+    while int(month) < 
 
 if __name__ == "__main__":
     main()
