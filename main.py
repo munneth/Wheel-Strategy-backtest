@@ -17,13 +17,18 @@ def main():
     date = input()
     day = getDay(date)
     options = fetchOptions(date)
-    viableOptions = getViableOptions(options, day)
+    viableOptions = getViableOptions(options, date)
+    print(options)
+    print("--------------------------------")
+    
     print(viableOptions)
+    print("--------------------------------")
 
     print("How many days do you want to run the program for?")
     daysToRun = int(input())
+    for option in getStrikeBidPairs(viableOptions):
+        print(str(option) + "\n")
 
-    print(getStrikeBidPairs(viableOptions))
     print("Enter what Strike price you would like, your bid will be the one associated with that strike price")
     strikePrice = int(input())
 

@@ -2,6 +2,7 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,14 +39,23 @@ viableOptionsBids = []
 #print(options[0]['expiration'])
 
 
-def getViableOptions(options, day):
-    i = 0
-    while i < len(options):
-        optionsExpire = options[i]['expiration']
-        if optionsExpire[5:7] == '09' and (int(optionsExpire[8:10]) >= day and int(optionsExpire[8:10]) <= day+5 ):
-            viableOptions.append(options[i])
-            #print(options[i])
-        i += 1
+def getViableOptions(options, start_date):
+    """
+    Returns options expiring between 30 and 45 days after the user-input start_date.
+    start_date: string in 'YYYY-MM-DD' format
+    """
+    viableOptions = []
+    start_dt = datetime.strptime(start_date, '%Y-%m-%d')
+    min_expiry = start_dt + timedelta(days=30)
+    max_expiry = start_dt + timedelta(days=45)
+    for option in options:
+        expiration_str = option.get('expiration')
+        try:
+            expiration_dt = datetime.strptime(expiration_str, '%Y-%m-%d')
+            if min_expiry <= expiration_dt <= max_expiry:
+                viableOptions.append(option)
+        except Exception as e:
+            print(f"Skipping option with invalid expiration '{expiration_str}': {e}")
     return viableOptions
 
 
