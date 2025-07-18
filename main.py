@@ -20,6 +20,11 @@ def main():
     daysToRun = int(input())
 
     
+    print("Enter what Strike price you would like, your bid will be the one associated with that strike price")
+    strikePrice = int(input())
+
+    while int(day) < daysToRun:
+        print(getLow(date))
     strikes = getStrikes(getViableOptions(options, day))
     bids = getBids(getViableOptions(options, day))
     print(strikes)

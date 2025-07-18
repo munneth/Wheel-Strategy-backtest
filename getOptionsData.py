@@ -55,6 +55,7 @@ def getStrikes(viableOptions):
         print(viableOptions[j]['strike'])
         j += 1
 
+
 # parse bid of those in the viable options array
 def getBids(viableOptions):
     k = 0
@@ -62,3 +63,12 @@ def getBids(viableOptions):
         viableOptionsBids.append(viableOptions[k]['bid'])
         print(viableOptions[k]['bid'])
         k += 1 
+
+
+def getStrikeBidPairs(viableOptions):
+    pairs = []
+    for option in viableOptions:
+        strike = option.get('strike')
+        bid = option.get('bid')
+        pairs.append((strike, bid))
+    return pairs 
