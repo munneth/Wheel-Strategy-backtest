@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate
-from getStockData import getLow, getHigh, getOpen
+from getStockData import getLow, getHigh, getOpen, calendarIncrement
 
 # Load environment variables from .env file
 load_dotenv()
@@ -55,7 +55,18 @@ def main():
     print(strikes)
     print(bids)
 
-    while int(month) < 
+    while int(month) <= int(expireMonth) and int(day) <= int(expireDay):
+        print(getLow(date))
+        print("\n" + "-----------------------------------" + "\n")
+        print(getHigh(date))
+        print("\n" + "-----------------------------------" + "\n")
+        print(getOpen(date))
+        print("\n" + "-----------------------------------" + "\n")
+        if strikePrice <= int(getLow(date)):
+            date = calendarIncrement(date)
+        else:
+            
+
 
 if __name__ == "__main__":
     main()
