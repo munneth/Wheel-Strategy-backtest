@@ -13,6 +13,9 @@ api_key = os.getenv('ALPHA_API_KEY')
 def main():
 
     # user input
+    print("Enter your account balance you have available to spend")
+    balance = int(input())
+
     print("Enter the date you want to begin from ---- EXAMPLE: 2024-08-01")
     date = input()
     expireDate = None
@@ -65,7 +68,14 @@ def main():
         if strikePrice <= int(getLow(date)):
             date = calendarIncrement(date)
         else:
-            
+            balance = balance - (contracts * strikePrice)
+            balance = balance + (contracts * bid)
+            break
+
+
+    balance = balance - (contracts * strikePrice)
+    balance = balance + (contracts * bid)
+    print(balance)
 
 
 if __name__ == "__main__":
