@@ -51,7 +51,7 @@ def main():
     contracts = int(input())
 
 
-    
+
     strikes = getStrikes(getViableOptions(options, day))
     bids = getBids(getViableOptions(options, day))
     print(strikes)
