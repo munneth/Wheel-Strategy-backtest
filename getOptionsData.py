@@ -41,6 +41,15 @@ def getExpireDate(strikeBidExpireArray, selectedBid, selectedStrike):
             return option[0]
 
 def isMarketOpen(date):
+    # Convert date string to datetime object to check for weekends
+    date_obj = datetime.strptime(date, '%Y-%m-%d')
+    day_of_week = date_obj.weekday()  # Monday=0, Sunday=6
+    
+    # Check if it's weekend (Saturday=5, Sunday=6)
+    if day_of_week >= 5:  # Saturday or Sunday
+        return False
+    
+    # Check for holidays
     day = getDay(date)
     month = getMonth(date)
     if month == 1 and day == 1:
