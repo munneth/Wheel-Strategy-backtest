@@ -37,8 +37,12 @@ def getMonth(date):
  
 def getExpireDate(strikeBidExpireArray, selectedBid, selectedStrike):
     for option in strikeBidExpireArray:
-        if option[2] == selectedBid and option[1] == selectedStrike:
+        # Convert to float for comparison to handle string/float mismatches
+        option_bid = float(option[2])
+        option_strike = float(option[1])
+        if option_bid == selectedBid and option_strike == selectedStrike:
             return option[0]
+    return None  # Return None if no matching option is found
 
 def isMarketOpen(date):
     # Convert date string to datetime object to check for weekends

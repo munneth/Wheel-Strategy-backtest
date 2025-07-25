@@ -49,7 +49,7 @@ def main():
 
 
     print("Enter what Strike price you would like, your bid will be the one associated with that strike price")
-    strikePrice = int(input())
+    strikePrice = float(input())
     print("Enter what bid you would like, your strike will be the one associated with that bid")
     bid = float(input())
     expireDate = getExpireDate(getStrikeBidPairs(viableOptions), bid, strikePrice)
