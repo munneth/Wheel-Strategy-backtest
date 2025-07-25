@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate
+from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate, isMarketOpen
 from getStockData import getLow, getHigh, getOpen, calendarIncrement
 
 # Load environment variables from .env file

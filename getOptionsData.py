@@ -40,6 +40,32 @@ def getExpireDate(strikeBidExpireArray, selectedBid, selectedStrike):
         if option[2] == selectedBid and option[1] == selectedStrike:
             return option[0]
 
+def isMarketOpen(date):
+    day = getDay(date)
+    month = getMonth(date)
+    if month == 1 and day == 1:
+        return False
+    elif month == 1 and day == 20:
+        return False
+    elif month == 2 and day == 17:
+        return False
+    elif month == 4 and day == 18:
+        return False
+    elif month == 5 and day == 26:
+        return False
+    elif month == 6 and day == 19:
+        return False
+    elif month == 7 and day == 4:
+        return False
+    elif month == 9 and day == 1:
+        return False
+    elif month == 11 and day == 27:
+        return False
+    elif month == 12 and day == 25:
+        return False
+    else:
+        return True
+
 #parse json to get all options within 30-35 day expiration from date
 
 viableOptions = []
