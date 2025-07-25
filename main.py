@@ -10,14 +10,24 @@ api_key = os.getenv('ALPHA_API_KEY')
 
 
 
+def getValidMarketDate():
+    """Recursively get a valid market date from user input"""
+    print("Enter the date you want to begin from ---- EXAMPLE: 2024-08-01")
+    date = input()
+    if isMarketOpen(date):
+        return date
+    else:
+        print("Market is closed on this date, please enter a different date")
+        return getValidMarketDate()
+
 def main():
 
     # user input
     print("Enter your account balance you have available to spend")
     balance = int(input())
 
-    print("Enter the date you want to begin from ---- EXAMPLE: 2024-08-01")
-    date = input()
+    date = getValidMarketDate()
+    
     expireDate = None
     day = getDay(date)
     expireDay = None
