@@ -36,10 +36,10 @@ def main():
     options = fetchOptions(date)
     viableOptions = getViableOptions(options, date)
     strikePrice, bid = None, None
-    print(options)
+    #print(options)
     print("--------------------------------")
     
-    print(viableOptions)
+    #print(viableOptions)
     print("--------------------------------")
 
     print("How many days do you want to run the program for?")
@@ -62,19 +62,29 @@ def main():
 
 
 
-    strikes = getStrikes(getViableOptions(options, day))
-    bids = getBids(getViableOptions(options, day))
-    print(strikes)
-    print(bids)
+    strikes = getStrikes(getViableOptions(options, date))
+    bids = getBids(getViableOptions(options, date))
+    #print(strikes)
+    #print(bids)
 
     while int(month) <= int(expireMonth) and int(day) <= int(expireDay):
-        print(getLow(date))
+        low_price = getLow(date)
+        high_price = getHigh(date)
+        open_price = getOpen(date)
+        
+        if low_price is None or high_price is None or open_price is None:
+            print("Error: Could not fetch stock data for date:", date)
+            date = calendarIncrement(date)
+            continue
+            
+        print("Low: " + low_price)
         print("\n" + "-----------------------------------" + "\n")
-        print(getHigh(date))
+        print("High: " + high_price)
         print("\n" + "-----------------------------------" + "\n")
-        print(getOpen(date))
+        print("Open: " + open_price)
         print("\n" + "-----------------------------------" + "\n")
-        if strikePrice <= int(getLow(date)):
+        
+        if float(strikePrice) <= float(low_price):
             date = calendarIncrement(date)
         else:
             balance = balance - (contracts * strikePrice)
@@ -84,7 +94,7 @@ def main():
 
     balance = balance - (contracts * strikePrice)
     balance = balance + (contracts * bid)
-    print(balance)
+    print("Balance: " + str(balance))
 
 
 if __name__ == "__main__":

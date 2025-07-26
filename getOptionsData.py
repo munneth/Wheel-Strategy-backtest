@@ -87,6 +87,7 @@ viableOptionsBids = []
 #print(options[0]['expiration'])
 
 
+
 def getViableOptions(options, start_date):
     """
     Returns options expiring between 30 and 45 days after the user-input start_date.
