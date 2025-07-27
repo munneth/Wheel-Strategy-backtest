@@ -129,7 +129,7 @@ def getStrikes(viableOptions):
     j = 0
     while j < len(viableOptions):
         viableOptionsStrikes.append(viableOptions[j]['strike'])
-        #print(viableOptions[j]['strike'])
+        print(viableOptions[j]['strike'])
         j += 1
 
 
@@ -138,7 +138,7 @@ def getBids(viableOptions):
     k = 0
     while k < len(viableOptions):
         viableOptionsBids.append(viableOptions[k]['bid'])
-        #print(viableOptions[k]['bid'])
+        print(viableOptions[k]['bid'])
         k += 1 
 
 

@@ -44,7 +44,11 @@ def main():
 
     print("How many days do you want to run the program for?")
     daysToRun = int(input())
-    for option in getStrikeBidPairs(viableOptions):
+
+    
+    pairs = getStrikeBidPairs(viableOptions)
+    print(f"Number of option pairs: {len(pairs)}")
+    for option in pairs:
         print(str(option) + "\n")
 
 

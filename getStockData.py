@@ -28,7 +28,7 @@ def getHigh(date):
     if "Time Series (Daily)" in data:
         if date in data["Time Series (Daily)"]:
             high = data["Time Series (Daily)"][date]["2. high"]
-            print(high)
+            #print(high)
             return high
         else:
             print(f"Warning: Date {date} not found in 'Time Series (Daily)'.")
@@ -40,13 +40,13 @@ def getHigh(date):
 def getLow(date):
     data = getStockData(date)
     low = data["Time Series (Daily)"][date]["3. low"]
-    print(low)
+    #print(low)
     return low
 
 def getOpen(date):
     data = getStockData(date)
     open = data["Time Series (Daily)"][date]["1. open"]
-    print(open)
+    #print(open)
     return open
 
 getHigh('2024-08-01')
