@@ -3,6 +3,7 @@ import requests
 import json
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+from main import calendarIncrement
 
 # Load environment variables from .env file
 load_dotenv()
@@ -85,6 +86,19 @@ viableOptions = []
 viableOptionsStrikes = []
 viableOptionsBids = []
 #print(options[0]['expiration'])
+
+'''
+This function is used to increment the date until the market is open.
+It is used to avoid skipping over weekends and holidays.
+It is used in the main.py file to increment the date until the market is open.
+It is used in the main.py file to increment the date until the market is open.
+'''
+def dateIncrementWithClose(date):
+    if isMarketOpen(calendarIncrement(date)) == False:
+        date = calendarIncrement(date)
+        date = dateIncrementWithClose(date)
+    date = calendarIncrement(date)
+    return date
 
 
 

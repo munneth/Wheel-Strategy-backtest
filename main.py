@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate, isMarketOpen
+from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate, isMarketOpen, dateIncrementWithClose
 from getStockData import getLow, getHigh, getOpen, calendarIncrement
 
 # Load environment variables from .env file
@@ -85,7 +85,8 @@ def main():
         print("\n" + "-----------------------------------" + "\n")
         
         if float(strikePrice) <= float(low_price):
-            date = calendarIncrement(date)
+            date = dateIncrementWithClose(date)
+
         else:
             balance = balance - (contracts * strikePrice)
             balance = balance + (contracts * bid)
