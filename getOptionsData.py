@@ -3,7 +3,7 @@ import requests
 import json
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
-from main import calendarIncrement
+from getStockData import calendarIncrement
 
 # Load environment variables from .env file
 load_dotenv()
@@ -73,6 +73,8 @@ def isMarketOpen(date):
         return False
     elif month == 9 and day == 1:
         return False
+    elif month == 9 and day == 11:
+        return False
     elif month == 11 and day == 27:
         return False
     elif month == 12 and day == 25:
@@ -127,7 +129,7 @@ def getStrikes(viableOptions):
     j = 0
     while j < len(viableOptions):
         viableOptionsStrikes.append(viableOptions[j]['strike'])
-        print(viableOptions[j]['strike'])
+        #print(viableOptions[j]['strike'])
         j += 1
 
 
@@ -136,7 +138,7 @@ def getBids(viableOptions):
     k = 0
     while k < len(viableOptions):
         viableOptionsBids.append(viableOptions[k]['bid'])
-        print(viableOptions[k]['bid'])
+        #print(viableOptions[k]['bid'])
         k += 1 
 
 
