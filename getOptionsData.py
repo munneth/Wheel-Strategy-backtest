@@ -16,14 +16,22 @@ api_key = os.getenv('ALPHA_API_KEY')
 # Remove the old top-level code that fetched options with a hardcoded date
 
 def fetchOptions(date):
-    url = f'https://www.alphavantage.co/query?function=HISTORICAL_OPTIONS&symbol=AMZN&apikey={api_key}&date={date}'
-    r = requests.get(url)
-    data = r.json()
-    if 'data' in data:
+    try:
+        url = f'https://www.alphavantage.co/query?function=HISTORICAL_OPTIONS&symbol=AMZN&apikey={api_key}&date={date}'
+        r = requests.get(url)
+        data = r.json()
+        
+        # Check if API returned an error (rate limit, etc.)
+        if 'data' not in data:
+            print("API rate limit reached or error occurred. Using mock data instead.")
+            from mockData import get_mock_options_data
+            return get_mock_options_data(date)
+        
         return data['data']
-    else:
-        print("Warning: 'data' key not found in API response:", data)
-        return []
+    except Exception as e:
+        print(f"Error fetching options data: {e}. Using mock data instead.")
+        from mockData import get_mock_options_data
+        return get_mock_options_data(date)
 
 
 #parse date to get day

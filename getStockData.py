@@ -49,6 +49,37 @@ def getOpen(date):
     #print(open)
     return open
 
+def getStockDataFromCache(stock_cache, date):
+    """Get stock data from a cached stock data dictionary"""
+    if date in stock_cache:
+        daily_data = stock_cache[date]
+        return {
+            'low': daily_data["3. low"],
+            'high': daily_data["2. high"],
+            'open': daily_data["1. open"],
+            'close': daily_data["4. close"]
+        }
+    return None
+
+# Cached versions of the functions that use the stock_cache
+def getHighFromCache(stock_cache, date):
+    """Get high price from cached stock data"""
+    if date in stock_cache:
+        return stock_cache[date]["2. high"]
+    return None
+
+def getLowFromCache(stock_cache, date):
+    """Get low price from cached stock data"""
+    if date in stock_cache:
+        return stock_cache[date]["3. low"]
+    return None
+
+def getOpenFromCache(stock_cache, date):
+    """Get open price from cached stock data"""
+    if date in stock_cache:
+        return stock_cache[date]["1. open"]
+    return None
+
 getHigh('2024-08-01')
 
     

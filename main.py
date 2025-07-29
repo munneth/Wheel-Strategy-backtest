@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from getOptionsData import getViableOptions, getStrikes, getBids, getDay, getMonth, getStrikeBidPairs, fetchOptions, getExpireDate, isMarketOpen, dateIncrementWithClose
-from getStockData import getLow, getHigh, getOpen, calendarIncrement
+from getStockData import getLow, getHigh, getOpen, calendarIncrement, getStockDataFromCache, getHighFromCache, getLowFromCache, getOpenFromCache, getStockData
 
 # Load environment variables from .env file
 load_dotenv()
@@ -71,13 +71,29 @@ def main():
     #print(strikes)
     #print(bids)
 
+    # Fetch all stock data once at the beginning
+    print("Fetching stock data for the entire period...")
+    stock_data = getStockData(date)
+    
+    # Create a cache for stock prices by date
+    stock_cache = {}
+    if "Time Series (Daily)" in stock_data:
+        stock_cache = stock_data["Time Series (Daily)"]
+        print(f"Successfully loaded {len(stock_cache)} days of stock data")
+    else:
+        print("Error: Could not fetch stock data. Using mock data.")
+        from mockData import get_mock_stock_data
+        stock_cache = get_mock_stock_data()["Time Series (Daily)"]
+        print(f"Using mock data with {len(stock_cache)} days")
+
     while int(month) <= int(expireMonth) and int(day) <= int(expireDay):
-        low_price = getLow(date)
-        high_price = getHigh(date)
-        open_price = getOpen(date)
+        # Get stock data from cache instead of making API calls
+        low_price = getLowFromCache(stock_cache, date)
+        high_price = getHighFromCache(stock_cache, date)
+        open_price = getOpenFromCache(stock_cache, date)
         
         if low_price is None or high_price is None or open_price is None:
-            print("Error: Could not fetch stock data for date:", date)
+            print(f"Error: No stock data available for date: {date}")
             date = calendarIncrement(date)
             continue
             
