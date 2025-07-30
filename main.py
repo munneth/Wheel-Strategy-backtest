@@ -86,7 +86,7 @@ def main():
         stock_cache = get_mock_stock_data()["Time Series (Daily)"]
         print(f"Using mock data with {len(stock_cache)} days")
 
-    while int(month) <= int(expireMonth) and int(day) <= int(expireDay):
+    while (int(month) < int(expireMonth)) or (int(month) == int(expireMonth) and int(day) <= int(expireDay)):
         # Get stock data from cache instead of making API calls
         low_price = getLowFromCache(stock_cache, date)
         high_price = getHighFromCache(stock_cache, date)
@@ -95,8 +95,15 @@ def main():
         if low_price is None or high_price is None or open_price is None:
             print(f"Error: No stock data available for date: {date}")
             date = calendarIncrement(date)
+            # Update month and day for the loop condition
+            month = getMonth(date)
+            day = getDay(date)
             continue
-            
+        print("----------------------------")
+        print("----------------------------")
+        print(date)
+        print("----------------------------")
+        print("----------------------------")    
         print("Low: " + low_price)
         print("\n" + "-----------------------------------" + "\n")
         print("High: " + high_price)
@@ -106,6 +113,9 @@ def main():
         
         if float(strikePrice) <= float(low_price):
             date = dateIncrementWithClose(date)
+            # Update month and day for the loop condition
+            month = getMonth(date)
+            day = getDay(date)
 
         else:
             balance = balance - (contracts * strikePrice)
