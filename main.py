@@ -112,20 +112,30 @@ def main():
         print("\n" + "-----------------------------------" + "\n")
         
         if float(strikePrice) <= float(low_price):
-            date = dateIncrementWithClose(date)
-            # Update month and day for the loop condition
-            month = getMonth(date)
-            day = getDay(date)
+            # Stock stays above strike price - you win!
+            # You keep the premium (bid) and don't get assigned
+            balance = balance + (contracts * bid)
+            print(f"You win! Stock low ({low_price}) stayed above strike price ({strikePrice})")
+            print("Balance: " + str(balance))
+            return
 
-        else:
+        elif float(strikePrice) >= float(low_price):
+            # Stock went below strike price - you lose!
+            # You get assigned and have to buy the stock at strike price
             balance = balance - (contracts * strikePrice)
             balance = balance + (contracts * bid)
-            break
+            print(f"You lose! Stock low ({low_price}) went below strike price ({strikePrice})")
+            print("You get assigned and buy stock at strike price")
+            print("Balance: " + str(balance))
+            return
 
 
-    balance = balance - (contracts * strikePrice)
+    # If we reach here, the option expired without being assigned
+    # You keep the premium (bid) - this is a win!
     balance = balance + (contracts * bid)
+    print("Option expired without assignment. You keep the premium - you win!")
     print("Balance: " + str(balance))
+    return
 
 
 if __name__ == "__main__":
