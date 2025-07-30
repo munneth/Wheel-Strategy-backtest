@@ -111,15 +111,7 @@ def main():
         print("Open: " + open_price)
         print("\n" + "-----------------------------------" + "\n")
         
-        if float(strikePrice) <= float(low_price):
-            # Stock stays above strike price - you win!
-            # You keep the premium (bid) and don't get assigned
-            balance = balance + (contracts * bid)
-            print(f"You win! Stock low ({low_price}) stayed above strike price ({strikePrice})")
-            print("Balance: " + str(balance))
-            return
-
-        elif float(strikePrice) >= float(low_price):
+        if float(strikePrice) >= float(low_price):
             # Stock went below strike price - you lose!
             # You get assigned and have to buy the stock at strike price
             balance = balance - (contracts * strikePrice)
@@ -128,6 +120,13 @@ def main():
             print("You get assigned and buy stock at strike price")
             print("Balance: " + str(balance))
             return
+        else:
+            # Stock stays above strike price - continue monitoring
+            print(f"Stock low ({low_price}) still above strike price ({strikePrice}) - continuing...")
+            date = dateIncrementWithClose(date)
+            # Update month and day for the loop condition
+            month = getMonth(date)
+            day = getDay(date)
 
 
     # If we reach here, the option expired without being assigned
