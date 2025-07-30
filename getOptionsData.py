@@ -10,12 +10,22 @@ load_dotenv()
 # Now you can access environment variables
 api_key = os.getenv('ALPHA_API_KEY')
 
+# Global cache for options data
+_options_data_cache = {}
+
 #url
 #date='2024-08-01'#most volatile time period for market in 2024
 
 # Remove the old top-level code that fetched options with a hardcoded date
 
 def fetchOptions(date):
+    global _options_data_cache
+    
+    # Check if we already have this date cached
+    if date in _options_data_cache:
+        print(f"Using cached options data for {date}")
+        return _options_data_cache[date]
+    
     try:
         url = f'https://www.alphavantage.co/query?function=HISTORICAL_OPTIONS&symbol=AMZN&apikey={api_key}&date={date}'
         r = requests.get(url)
@@ -25,13 +35,21 @@ def fetchOptions(date):
         if 'data' not in data:
             print("API rate limit reached or error occurred. Using mock data instead.")
             from mockData import get_mock_options_data
-            return get_mock_options_data(date)
+            options_data = get_mock_options_data(date)
+        else:
+            options_data = data['data']
         
-        return data['data']
+        # Cache the result
+        _options_data_cache[date] = options_data
+        print(f"Options data fetched and cached for {date}")
+        return options_data
+        
     except Exception as e:
         print(f"Error fetching options data: {e}. Using mock data instead.")
         from mockData import get_mock_options_data
-        return get_mock_options_data(date)
+        options_data = get_mock_options_data(date)
+        _options_data_cache[date] = options_data
+        return options_data
 
 
 #parse date to get day
